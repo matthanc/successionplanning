@@ -17,7 +17,7 @@ df <- lapply(df, function(x) read_excel(x, skip = 1))
 df <- bind_rows(df, .id = "id")
 
 #import retirement factor lookup key into GE
-factorlookup <- read_csv("factorlookup.csv")
+factorlookup <- read_csv("https://raw.githubusercontent.com/matthanc/successionplanning/main/factorlookup.csv")
 
 #change date formatting using lubridate and purrr libraries 
 df <-  df %>% modify_if(is.POSIXct, as.Date)
@@ -34,9 +34,9 @@ df <- df %>%
   mutate(retirement_formula = pmin((service_years * retirementfactor),0.75))
 
 #import retirement model into environment
-load("retirementmodel.rda")
+load(url("https://github.com/matthanc/successionplanning/blob/main/retirementmodel.rda?raw=true"))
 
-df <- df %>% mutate(retirementmodel = predict(retirementmodel, newdata = df, type = "response", n.trees = 10000))
+df <- df %>% mutate(retirementmodel = predict(retirementmodel, newdata = df, type = "response"))
 
 
 df <- df %>%
