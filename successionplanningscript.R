@@ -48,7 +48,7 @@ df <- df %>%
   rename("Service Years" = service_years) %>%
   rename("Retirement Factor (multiplier)" = retirementfactor) %>%
   rename("Retirement Formula" = retirement_formula) %>%
-  rename("Retirement Model Score" = retirementmodel)
+  rename("Retirement Index" = retirementmodel)
 
 
 write_excel_csv(df,"successionplanninganalysis.csv")
